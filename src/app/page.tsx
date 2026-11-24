@@ -1,69 +1,69 @@
-import Image from "next/image";
+import Hero from "@/components/Hero";
+import HostGuarantee from "@/components/HostGuarantee";
+import HowItworks from "@/components/HowItworks";
+import HowBookingWorks from "@/components/HowItworks";
+import Navbar from "@/components/Navbar";
+import Studios from "@/components/Studio";
+import Studiocategory from "@/components/Studiocategory";
 
-export default function Home() {
+const sections = [
+  {
+    title: "Create Something Extraordinary",
+    subtitle: "Find the perfect creative space for your next big idea.",
+    bg: "bg-slate-50",
+  },
+  {
+    title: "Discover Creative Spaces",
+    subtitle: "Explore inspiring studios and production environments.",
+    bg: "bg-white",
+  },
+  {
+    title: "Bring Your Ideas to Life",
+    subtitle: "Connect with spaces, creators, and professionals.",
+    bg: "bg-indigo-50",
+  },
+  {
+    title: "Your Next Project Starts Here",
+    subtitle: "Book your ideal workspace and start creating.",
+    bg: "bg-slate-50",
+  },
+];
+
+export default function page() {
+ const images = [
+  {
+    src: "/Img_One.png",
+    alt: "Professional photography studio with softbox lighting",
+    eyebrow: "Photo & Video Studios",
+    title: "Shoot Where Light Meets Vision",
+    subtitle: "Book fully equipped studios by the hour. Lighting, backdrops and gear are ready when you are.",
+  },
+  {
+    src: "/Img_two.jpg",
+    alt: "Cyclorama backdrop in a creative studio space",
+    eyebrow: "Creative Spaces",
+    title: "Your Next Masterpiece Starts Here",
+    subtitle: "Seamless backdrops, grip equipment and lighting kits, all in one place across the city.",
+  },
+  {
+    src: "/Img_three.jpg",
+    alt: "Empty studio floor with dramatic lighting",
+    eyebrow: "For Studio Owners",
+    title: "Turn Your Space Into Income",
+    subtitle: "List your studio, set your own rates and reach creators looking for their next set.",
+  },
+];
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main>
+      {/* <Navbar/> */}
+      <Hero images={images} delay={500} />
+
+      <Studiocategory />
+      <Studios />
+      <HowItworks/>
+      <HostGuarantee/>
+
+
+    </main>
   );
 }
