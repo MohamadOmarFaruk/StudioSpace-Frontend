@@ -141,7 +141,7 @@ export default function Studios({
 
   // Reusable Studio Card
   const StudioCard = ({ studio }: StudioCardProps) => (
-    <article className="studio-card group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:border-purple-200 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
+    <article className="studio-card group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white transition-[border-color,box-shadow,translate] duration-500 hover:-translate-y-2 hover:border-purple-200 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
 
       {/* Studio Image */}
       <div className="relative h-64 overflow-hidden">

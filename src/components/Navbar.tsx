@@ -198,17 +198,6 @@ function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={(event) => {
-                  if (link.href !== "/#how-it-works") return;
-                  const section = document.getElementById("how-it-works");
-                  if (pathname === "/" && section) {
-                    event.preventDefault();
-                    section.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
-                  }
-                }}
                 ref={(el) => {
                   linkRefs.current[index] = el;
                 }}

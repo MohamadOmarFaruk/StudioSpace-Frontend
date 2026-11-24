@@ -56,7 +56,7 @@ export default function page() {
   return (
     <main>
       {/* <Navbar/> */}
-      <Hero images={images} delay={500} />
+      <Hero images={images} />
 
       <Studiocategory />
       <Studios />

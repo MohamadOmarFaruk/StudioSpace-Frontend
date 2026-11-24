@@ -31,6 +31,9 @@ StudioSpace is a marketplace for discovering and listing creative studios and pr
 
    ```env
    MONGODB_URI=your_auth_mongodb_connection_string
+   BETTER_AUTH_SECRET=use_a_long_random_secret
+   BETTER_AUTH_URL=http://localhost:3000
+   BETTER_AUTH_TRUSTED_ORIGINS=http://localhost:3000
    GOOGLE_CLIENT_ID=your_google_client_id
    GOOGLE_CLIENT_SECRET=your_google_client_secret
    GITHUB_CLIENT_ID=your_github_client_id
@@ -44,6 +47,12 @@ StudioSpace is a marketplace for discovering and listing creative studios and pr
    the same admin account email in its private `STUDIO_ADMIN_EMAIL` setting.
    The ImgBB upload key is exposed to the browser because uploads go directly
    to ImgBB; use an appropriately scoped key and configure ImgBB account limits.
+
+   For deployment, set `BETTER_AUTH_URL` to the frontend's canonical HTTPS URL
+   and add any custom frontend domains to `BETTER_AUTH_TRUSTED_ORIGINS` as a
+   comma-separated list of origins (scheme and hostname, no path). Vercel
+   deployment and production domains are also trusted automatically. These are
+   frontend auth settings; `NEXT_PUBLIC_APP_API_URL` is the separate studio API.
 
 3. Configure the backend `.env` in the sibling `assingment-8 backend` folder:
 
