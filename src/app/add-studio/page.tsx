@@ -80,7 +80,6 @@ export default function AddStudioPage() {
 
   const [formData, setFormData] = useState<StudioForm>(initialForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -109,96 +108,12 @@ export default function AddStudioPage() {
     }));
   };
 
-  const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    event.target.value = "";
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      toast.error("Choose an image file.");
-      return;
-    }
-    if (file.size > 32 * 1024 * 1024) {
-      toast.error("Choose an image smaller than 32 MB.");
-      return;
-    }
-
-    const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
-    if (!apiKey) {
-      toast.error("Image upload is not configured. Enter an image URL instead.");
-      return;
-    }
-
-    const uploadData = new FormData();
-    uploadData.append("image", file);
-    setIsUploadingImage(true);
-    try {
-      const response = await fetch(
-        `https://api.imgbb.com/1/upload?key=${encodeURIComponent(apiKey)}`,
-        { method: "POST", body: uploadData },
-      );
-      const result: unknown = await response.json();
-      const imageUrl =
-        typeof result === "object" &&
-        result !== null &&
-        "data" in result &&
-        typeof result.data === "object" &&
-        result.data !== null &&
-        "url" in result.data &&
-        typeof result.data.url === "string"
-          ? result.data.url
-          : null;
-
-      if (!response.ok || !imageUrl) {
-        const message =
-          typeof result === "object" &&
-          result !== null &&
-          "error" in result &&
-          typeof result.error === "object" &&
-          result.error !== null &&
-          "message" in result.error &&
-          typeof result.error.message === "string"
-            ? result.error.message
-            : `Image upload failed (${response.status}).`;
-        throw new Error(message);
-      }
-
-      setFormData((previous) => ({ ...previous, image: imageUrl }));
-      toast.success("Studio image uploaded.");
-    } catch (uploadError) {
-      console.error("Studio image upload failed:", uploadError);
-      toast.error(
-        uploadError instanceof Error
-          ? uploadError.message
-          : "Studio image upload failed.",
-      );
-    } finally {
-      setIsUploadingImage(false);
-    }
-  };
-
   const Onhandle_Submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isUploadingImage) {
-      toast.error("Wait for the image upload to finish.");
-      return;
-    }
     const gallery = formData.galleryUrls
       .split(/[\n,]+/)
       .map((url) => url.trim())
       .filter(Boolean);
-    if (
-      gallery.some((url) => {
-        try {
-          return !["http:", "https:"].includes(new URL(url).protocol);
-        } catch {
-          return true;
-        }
-      })
-    ) {
-      toast.error("Enter valid http or https URLs for gallery images.");
-      return;
-    }
     setIsSubmitting(true);
 
     const locationParts = formData.location
@@ -479,28 +394,16 @@ export default function AddStudioPage() {
                       <Input
                         id="image"
                         name="image"
-                        type="url"
+                        type="text"
                         value={formData.image}
                         onChange={handleChange}
                         placeholder="https://example.com/studio-image.jpg"
                         required
                         className="h-12 rounded-xl border-[#DCE5DC]"
                       />
-                      <label className="flex h-12 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[#B9CCB8] bg-[#F4F8F2] px-4 text-sm text-[#52715A]">
-                        <ImagePlus size={18} />
-                        {isUploadingImage ? "Uploading..." : "Upload image"}
-                        <input
-                          type="file"
-                          accept="image/*"
-                          disabled={isUploadingImage}
-                          onChange={(event) => void handleImageUpload(event)}
-                          className="sr-only"
-                        />
-                      </label>
                     </div>
                     <p className="text-xs text-[#8B968C]">
-                      Upload an image or provide a public image URL. Upload
-                      requires NEXT_PUBLIC_IMGBB_API_KEY.
+                      Enter any public image URL.
                     </p>
                   </div>
 

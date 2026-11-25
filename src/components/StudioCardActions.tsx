@@ -269,7 +269,7 @@ export default function StudioCardActions({
                 Image URL
                 <input
                   required
-                  type="url"
+                  type="text"
                   value={image}
                   onChange={(event) => setImage(event.target.value)}
                   className="w-full rounded-lg border border-slate-300 px-3 py-2"
