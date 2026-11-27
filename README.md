@@ -177,11 +177,8 @@ You're ready to explore StudioSpace!
 
 ### Live Application
 
-**Frontend:** Add your deployed frontend URL.
+**Frontend:** https://studiospace-frontend-khaki.vercel.app/
 
-**Backend API:**
-
-https://assingment-8-backend-qejgfz7zd.vercel.app
 
 The backend is deployed on Vercel, while the frontend communicates with the API through the configured `NEXT_PUBLIC_APP_API_URL`.
 
