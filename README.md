@@ -1,102 +1,257 @@
-# StudioSpace
+# 🎬 StudioSpace — Creative Spaces Marketplace
 
-StudioSpace is a marketplace for discovering and listing creative studios and production spaces.
+**Discover. Create. Collaborate.**
 
-## Features
+StudioSpace is a peer-to-peer marketplace designed to connect creative professionals with inspiring workspaces. Whether you're a photographer, filmmaker, podcaster, musician, or content creator, StudioSpace makes it easier to discover, explore, and manage creative studios and production spaces.
 
-- Browse, search, and filter photo studios, film stages, podcast rooms, and other creative spaces.
-- Register and sign in with email/password or the configured social providers.
-- Create studios, see your own listings, and manage them as the owner; the configured administrator can manage all listings.
-- Request a studio booking with a date, start time, and duration; bookings are stored in MongoDB per signed-in account.
-- Manage owned studio listings and booking requests from the signed-in dashboard.
-- Responsive studio detail pages and branded loading and not-found states.
+Find the perfect space for your next project or list your own studio and connect with creators.
 
-## Technology
+## ✨ Key Features
 
-- Next.js App Router, React, TypeScript, and Tailwind CSS
-- Better Auth with MongoDB adapter and JWT plugin
-- Express and MongoDB studio API
-- React Hot Toast, GSAP, and Swiper
-- ImgBB for studio image uploads
+- **Explore Creative Spaces:** Browse photo studios, film stages, podcast rooms, music suites, and workshops.
+- **Search & Filter:** Find studios based on categories and available information.
+- **Authentication:** Register and sign in using email/password or configured social authentication providers.
+- **Studio Management:** Create, edit, view, and manage your own studio listings.
+- **Admin Management:** A designated administrator can manage all studio listings.
+- **Studio Booking:** Submit booking requests with a preferred date, start time, and duration.
+- **Booking Dashboard:** Manage your studio booking requests from your account.
+- **Booking Validation:** Prevent overlapping booking requests for the same studio and time.
+- **Image Upload:** Upload studio images using ImgBB integration.
+- **Responsive Design:** Enjoy a consistent experience across desktop, tablet, and mobile devices.
+- **Custom UI:** Branded loading screens, custom not-found pages, and interactive animations.
 
-## Local setup
+## 🛠️ Technology Stack
 
-1. Install the frontend dependencies from this directory:
+### Frontend
 
-   ```powershell
-   npm install
-   ```
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- GSAP
+- Swiper
+- React Hot Toast
 
-2. Configure the frontend `.env` (do not commit credentials):
+### Backend
 
-   ```env
-   MONGODB_URI=your_auth_mongodb_connection_string
-   BETTER_AUTH_SECRET=use_a_long_random_secret
-   BETTER_AUTH_URL=http://localhost:3000
-   BETTER_AUTH_TRUSTED_ORIGINS=http://localhost:3000
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   GITHUB_CLIENT_ID=your_github_client_id
-   GITHUB_CLIENT_SECRET=your_github_client_secret
-   NEXT_PUBLIC_APP_API_URL=http://localhost:5000
-   NEXT_PUBLIC_STUDIO_ADMIN_EMAIL=admin@example.com
-   NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key
-   ```
+- Node.js
+- Express.js
+- MongoDB
+- Better Auth
+- JOSE (JWT verification)
 
-   `NEXT_PUBLIC_STUDIO_ADMIN_EMAIL` controls the admin UI. The backend must use
-   the same admin account email in its private `STUDIO_ADMIN_EMAIL` setting.
-   The ImgBB upload key is exposed to the browser because uploads go directly
-   to ImgBB; use an appropriately scoped key and configure ImgBB account limits.
+### Authentication & Services
 
-   For deployment, set `BETTER_AUTH_URL` to the frontend's canonical HTTPS URL
-   and add any custom frontend domains to `BETTER_AUTH_TRUSTED_ORIGINS` as a
-   comma-separated list of origins (scheme and hostname, no path). Vercel
-   deployment and production domains are also trusted automatically. These are
-   frontend auth settings; `NEXT_PUBLIC_APP_API_URL` is the separate studio API.
+- Better Auth with MongoDB Adapter
+- Better Auth JWT Plugin
+- Google OAuth
+- GitHub OAuth
+- ImgBB Image Hosting
+- Vercel Deployment
 
-3. Configure the backend `.env` in the sibling `assingment-8 backend` folder:
+## 🏗️ Project Architecture
 
-   ```env
-   MONGODB_URI=your_studio_mongodb_connection_string
-   CLIENT_URL=http://localhost:3000
-   BETTER_AUTH_URL=http://localhost:3000
-   STUDIO_ADMIN_EMAIL=admin@example.com
-   PORT=5000
-   ```
+```text
+StudioSpace/
+│
+├── Frontend/
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   ├── public/
+│   ├── package.json
+│   └── .env
+│
+└── Backend/
+    ├── index.js
+    ├── package.json
+    └── .env
+```
 
-4. In one terminal, start the API from the backend folder:
+*The folder structure above represents the general architecture. Actual directories may differ.*
 
-   ```powershell
-   npm install
-   npm run dev
-   ```
+## 🚀 Local Installation & Setup
 
-5. In another terminal, start the frontend from this folder:
+Follow these steps to run StudioSpace locally.
 
-   ```powershell
-   npm run dev
-   ```
+### Prerequisites
 
-6. Open [http://localhost:3000](http://localhost:3000).
+Make sure you have installed:
 
-## Submission details
+- Node.js
+- npm
+- MongoDB database
+- Git
 
-- Live site URL: **Add the deployed URL before submission.**
-- Examiner test credentials: **Create a dedicated test account and provide its email/password before submission. Do not use a personal account.**
+### 1. Clone the Repository
 
-## Booking storage
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd StudioSpace
+```
 
-Booking requests are stored in the backend MongoDB `bookings` collection.
-Each request is tied to the authenticated customer and studio, starts with
-`Pending` status, and can only be cancelled by its customer while pending.
-Overlapping requests for the same studio and time are rejected by the API.
-Studio listings are stored in `studios`. On startup, the backend copies
-existing documents from the legacy `Assingment` collection when `studios` is
-empty; the legacy collection is left untouched.
+### 2. Install Frontend Dependencies
 
-## Validation
+```bash
+npm install
+```
 
-```powershell
+### 3. Configure Frontend Environment Variables
+
+Create a `.env` file in the frontend root directory.
+
+```env
+MONGODB_URI=your_auth_mongodb_connection_string
+
+BETTER_AUTH_SECRET=use_a_long_random_secret
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_TRUSTED_ORIGINS=http://localhost:3000
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+
+NEXT_PUBLIC_APP_API_URL=http://localhost:5000
+NEXT_PUBLIC_STUDIO_ADMIN_EMAIL=admin@example.com
+
+NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key
+```
+
+**Important Configuration Notes:**
+
+- `NEXT_PUBLIC_STUDIO_ADMIN_EMAIL` controls admin-related frontend UI.
+- The backend must use the same administrator email through `STUDIO_ADMIN_EMAIL`.
+- ImgBB uploads are performed directly from the browser, so the API key is publicly exposed. Configure appropriate account limits.
+- Use a strong, unique `BETTER_AUTH_SECRET`.
+- For production, configure the canonical HTTPS frontend URL in `BETTER_AUTH_URL` and add custom frontend origins to `BETTER_AUTH_TRUSTED_ORIGINS` where required.
+
+### 4. Configure Backend Environment Variables
+
+Navigate to your backend directory (`assingment-8 backend`) and create a `.env` file.
+
+```env
+MONGODB_URI=your_studio_mongodb_connection_string
+
+CLIENT_URL=http://localhost:3000
+BETTER_AUTH_URL=http://localhost:3000
+
+STUDIO_ADMIN_EMAIL=admin@example.com
+
+PORT=5000
+```
+
+### 5. Start the Backend Server
+
+Open a terminal inside the backend directory.
+
+```bash
+npm install
+npm run dev
+```
+
+The backend API will run at:
+
+```text
+http://localhost:5000
+```
+
+### 6. Start the Frontend Application
+
+Open another terminal in the frontend directory.
+
+```bash
+npm run dev
+```
+
+### 7. Open the Application
+
+Visit:
+
+**http://localhost:3000**
+
+You're ready to explore StudioSpace!
+
+## 🌐 Deployment
+
+### Live Application
+
+**Frontend:** Add your deployed frontend URL.
+
+**Backend API:**
+
+https://assingment-8-backend-qejgfz7zd.vercel.app
+
+The backend is deployed on Vercel, while the frontend communicates with the API through the configured `NEXT_PUBLIC_APP_API_URL`.
+
+Make sure all production environment variables are configured correctly in your deployment settings.
+
+## 📦 Database Structure
+
+StudioSpace uses MongoDB to manage authentication, studio listings, and booking requests.
+
+| Collection | Purpose |
+|---|---|
+| `user` / Auth collections | Authentication and user information |
+| `studios` | Creative studio listings |
+| `bookings` | Customer booking requests |
+
+### Booking Management
+
+- Every booking is associated with an authenticated customer and a studio.
+- New booking requests start with `Pending` status.
+- Customers can cancel their own pending booking requests.
+- Overlapping booking requests for the same studio and time are rejected by the backend.
+
+### Data Migration
+
+The backend supports legacy studio data migration.
+
+When the `studios` collection is empty, existing documents are copied from the legacy `Assingment` collection. The original collection remains untouched.
+
+## 🔐 Security & Access Control
+
+- Authentication through Better Auth.
+- JWT verification using JOSE.
+- Protected backend operations.
+- Owner-based studio management.
+- Administrator-level listing management.
+- Customer-specific booking access.
+- Environment-based configuration for sensitive credentials.
+
+## 🧪 Validation
+
+Run the following commands from the frontend directory to check the project.
+
+**Lint:**
+
+```bash
 npm run lint
+```
+
+**Production Build:**
+
+```bash
 npm run build
 ```
+
+## 👨‍💻 Author
+
+**Mohammad Omar Faruk**
+
+Full-Stack Web Developer | MERN Stack | Next.js
+
+- GitHub: [MohamadOmarFaruk](https://github.com/MohamadOmarFaruk)
+
+## ⭐ Support the Project
+
+If you like StudioSpace, consider giving this repository a **Star ⭐** on GitHub.
+
+Your support motivates further development and improvements!
+
+---
+
+<p align="center">
+  **Built with ❤️ for the Creative Community.**
+</p>
